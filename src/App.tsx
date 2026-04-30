@@ -1,8 +1,10 @@
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export const App = () => {
+const App = () => {
   return (
     <div>App</div>
   )
 }
+
+export default App
