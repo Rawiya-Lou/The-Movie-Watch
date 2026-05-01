@@ -1,17 +1,19 @@
-import { Routes, Route } from "react-router-dom"
-import Home from "./pages/Home"
-import { MovieDetails } from "./pages/MovieDetails"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Navbar from "./component/Navbar";
+import { MovieDetails } from "./pages/MovieDetails";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home/>}></Route>
-      <Route path="movie/:id" element={<MovieDetails/>}/>
-      {/* <SearchInput /> */}
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="movie/:id" element={<MovieDetails />} />
+        {/* <SearchInput /> */}
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-    </Routes>
-
-  )
-}
-
-export default App
+export default App;

@@ -8,6 +8,7 @@ export const SearchInput = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const debouncedSearch = useDebounce(searchInput, 500);
   const { data, isLoading } = useMovies(debouncedSearch);
+
   const handelSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };

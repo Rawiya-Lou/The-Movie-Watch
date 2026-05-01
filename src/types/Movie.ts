@@ -5,6 +5,8 @@ export interface Movie {
     release_date: string
     vote_average: number
     overview: string
+    tagline: string
+    runtime: number
 }
 
 export interface MovieResponse {
