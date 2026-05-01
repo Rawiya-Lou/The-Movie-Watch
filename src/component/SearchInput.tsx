@@ -1,47 +1,34 @@
 import { useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { useMovies } from "../hooks/useMovies";
-import { useNavigate } from "react-router-dom";
+import { SearchResults } from "./SearchResults";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export const SearchInput = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const debouncedSearch = useDebounce(searchInput, 500);
   const { data, isLoading } = useMovies(debouncedSearch);
-  const navigate = useNavigate();
-
   const handelSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
+
   return (
-    <div className="max-w-md relative text-gray-700 w-full">
-      <label className="text-xl">Search for A movie:</label>
+    <form className="order-3 md:order-2 w-full md:w-auto mt-4 md:mt-0 relative">
       <input
-        type="search"
+        type="text"
         value={searchInput}
         onChange={handelSearch}
-        className="text-gray-600 border border-black py-2 ps-4 rounded-xl text-xl m-4 focus:outline-none"
+        className="w-full md:w-64 bg-primary/60 border-none rounded-full py-2 px-4 pl-10 shadow-[inset_0_0_0_1px_#C5C6C7] focus:ring-2 focus:ring-accent-three outline-none transition-all"
         placeholder="Movie Name.."
       />
-      
-      <ul className="absolute z-10 w-full mt-1 bg-white border rounded-xl shadow-sm max-h-60 overflow-auto">
-        {isLoading && <li className="p-2 text-gray-500">Searching...</li>}
-        {data?.results.map(movie => (
-            <li key={movie.id} className="px-4 py-2 cursor-pointer hover:bg-blue-50 transition-colors"
-            onClick={() => {
-                navigate(`/movie/${movie.id}`)
-                setSearchInput('')
-            }}>
-                <div className="font-medium">{movie.title}</div>
-                <div className="text-xs text-gray-400">{movie.release_date?.split('-')[0]}</div>
-            </li>
-        ))}
-        {!isLoading && data?.results.length === 0 && (
-            <li className="p-2 text-gray-500 text-center">No Movies Found</li>
-        )}
-
-      </ul>
-     
-      <div className="grid grid-cols-4 gap-6"></div>
-    </div>
+      <MagnifyingGlassIcon className="h-5 w-5 absolute left-3 top-2.5 text-text-gray" />
+      {searchInput && (
+        <SearchResults
+          isLoading={isLoading}
+          onSelect={() => setSearchInput("")}
+          movies={data?.results || []}
+        />
+      )}
+    </form>
   );
 };

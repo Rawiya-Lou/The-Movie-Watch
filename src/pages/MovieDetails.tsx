@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useMovieDetails } from "../hooks/useMoviesDetails"
+import Navbar from "../component/Navbar";
 
 export const MovieDetails = () => {
     const {id} = useParams();
@@ -11,6 +12,7 @@ export const MovieDetails = () => {
     const imgUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
   return (
     <div>
+        <Navbar />
         <button onClick={()=> navigate(-1)} className="mb-4">⬅Back</button>
         <div className="flex flex-col md:flex-row gap-8">
             <img src={imgUrl} alt={movie.title} className="w-full md:w-80 rounded-lg shadow-xl" />
