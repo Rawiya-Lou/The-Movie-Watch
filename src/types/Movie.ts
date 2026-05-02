@@ -7,6 +7,7 @@ export interface Movie {
     overview: string
     tagline: string
     runtime: number
+    backdrop_path: string
 }
 
 export interface MovieResponse {

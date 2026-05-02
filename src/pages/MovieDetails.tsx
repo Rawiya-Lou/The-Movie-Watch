@@ -19,16 +19,16 @@ export const MovieDetails = () => {
   return (
   
      
-      <main className="min-h-screen max-auto p-4 md:p-8 relative  bg-cover bg-center flex flex-col justify-center" style={{
+      <main className="min-h-screen mt-20 md:mt-0 max-auto p-4 md:p-8 relative bg-cover bg-center flex flex-col justify-center" style={{
             backgroundImage: `linear-gradient(to right, rgba(11, 12, 16, 1) 20%, rgba(11, 12, 16, 0.4) 100%), url(${imgUrl})`
           }}>
 
           <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] z-0" />
-          <div className="relative z-10 container mz-auto">
+          <div className="relative z-10 container mz-auto py-10">
 
         <GoBackButton />
         <section
-          className="grid grid-cols-1 md:grid-cols-[400px_2fr] overflow-hidden gap-8 mx-6 my-3 z-10">
+          className="grid grid-cols-1 md:grid-cols-[400px_2fr] overflow-hidden gap-8 mx-6 my-10 z-10 ">
           <div className="w-full">
             <img
               src={imgUrl}

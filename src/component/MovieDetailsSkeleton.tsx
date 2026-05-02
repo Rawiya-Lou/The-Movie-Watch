@@ -1,24 +1,49 @@
-const MovieDetailsSkeleton = () => (
-  <div className="animate-pulse p-10">
-    <div className="animate-pulse flex h-[40px] w-[90px] items-center gap-2 py-2 px-4 rounded bg-secondary my-2 mx-6 [clip-path:polygon(20%_0%,_100%_0%,_100%_100%,_20%_100%,_0%_50%)]"></div>
-    <div className="animate-pulse container grid grid-cols-1 md:grid-cols-[400px_1fr] gap-14 mx-6 my-3 py-6">
-      <div className=" bg-secondary h-[600px] py-10 rounded-2xl" />{" "}
-      {/* Poster Skeleton */}
-      <div className="flex flex-col pt-10 gap-6">
-        <div className="h-10 w-100 bg-surface-two rounded bg-secondary" />{" "}
-        {/* Title Skeleton */}
-        <div className="flex gap-2">
-          <div className="md:p-4 h-[6px] w-[50px] bg-secondary rounded" />
-          <div className="md:p-4 h-[6px] w-[50px] bg-secondary rounded" />
-          <div className="md:p-4 h-[6px] w-[50px] bg-secondary rounded" />
-        </div>
-        {/* Info Skeleton */}
-        <div className="h-30 w-4/5 bg-secondary rounded" />{" "}
-        {/* Overview Skeleton */}
-        <div className="h-12 w-40 bg-secondary rounded mt-45" />{" "}
+export const MovieDetailsSkeleton = () => {
+  return (
+    <div className="min-h-screen mt-20 md:mt-0 p-4 md:p-8 relative bg-primary animate-pulse">
+      {/* Background/Backdrop Mockup */}
+      <div className="absolute inset-0 bg-secondary/30 backdrop-blur-[2px] z-0" />
+
+      <div className="relative z-10 container mx-auto py-10">
+        {/* Back Button Skeleton */}
+        <div className="h-10 w-24 bg-secondary rounded-lg mb-8 mt-3 ml-6" />
+
+        <section className="grid grid-cols-1 md:grid-cols-[400px_2fr] gap-8 mx-6 my-10">
+          
+          {/* Poster Skeleton */}
+          <div className="w-full aspect-[2/3] bg-secondary rounded-xl shadow-2xl" />
+
+          {/* Details Content Skeleton */}
+          <div className="p-6 md:p-10 flex flex-col gap-6">
+            <div>
+              {/* Title */}
+              <div className="h-12 md:h-16 bg-secondary rounded-md w-3/4 mb-4" />
+              {/* Tagline */}
+              <div className="h-6 bg-secondary rounded-md w-1/2 italic" />
+            </div>
+
+            {/* Badges/Meta Info Row */}
+            <div className="flex gap-4">
+              <div className="h-8 w-16 bg-secondary rounded-full" />
+              <div className="h-8 w-24 bg-secondary rounded-full" />
+              <div className="h-8 w-20 bg-secondary rounded-full" />
+            </div>
+
+            {/* Overview Section */}
+            <div className="space-y-3 mt-4">
+              <div className="h-6 bg-secondary rounded-md w-32 mb-6" /> {/* Header */}
+              <div className="h-4 bg-secondary rounded-md w-full" />
+              <div className="h-4 bg-secondary rounded-md w-full" />
+              <div className="h-4 bg-secondary rounded-md w-2/3" />
+            </div>
+
+            {/* Button Skeleton */}
+            <div className="mt-auto h-12 w-40 bg-secondary rounded-lg" />
+          </div>
+        </section>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default MovieDetailsSkeleton;

@@ -1,24 +1,26 @@
 import { useNavigate } from "react-router-dom";
 import type { Movie } from "../types/Movie";
 import { Star } from "lucide-react";
-import { useTransition } from "react";
+
 
 interface Props {
   movie: Movie;
   onSelect: () => void;
+  startTransition: React.TransitionStartFunction
 }
-export const SearchResultsItem = ({ movie, onSelect }: Props) => {
+export const SearchResultsItem = ({ movie, onSelect,  startTransition }: Props) => {
   const navigate = useNavigate();
-  const [isPending, startTransition] = useTransition();
+  
   const handleSelectMovie = (id: number) => {
     startTransition(() => {
-      navigate(`/movie/${id}`);
+       // Passing 'viewTransition: true' tells the browser to animate the swap
+      navigate(`/movie/${id}`, {viewTransition: true});
       onSelect();
     });
   };
 
   return (
-    <div className={isPending ? "opacity-70 pointer-events-none" : ""}>
+ 
       <li
         key={movie.id}
         className="px-4 py-2 cursor-pointer hover:bg-slate-200 hover:text-primary transition-colors border-b-1 border-text-gray"
@@ -32,7 +34,7 @@ export const SearchResultsItem = ({ movie, onSelect }: Props) => {
           />
           <div className="flex flex-col gap-2 w-full">
             <h3 className="font-medium text-left">
-              {movie.title} {isPending && "..."}
+              {movie.title}
             </h3>
             <div className="text-xs font-semibold flex justify-between">
               <p>{movie.release_date?.split("-")[0]}</p>
@@ -46,6 +48,6 @@ export const SearchResultsItem = ({ movie, onSelect }: Props) => {
           </div>
         </div>
       </li>
-    </div>
+   
   );
 };

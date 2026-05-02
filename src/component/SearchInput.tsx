@@ -4,7 +4,12 @@ import { useMovies } from "../hooks/useMovies";
 import { SearchResults } from "./SearchResults";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
-export const SearchInput = () => {
+interface Props {
+   startTransition: React.TransitionStartFunction
+}
+
+
+export const SearchInput = ({startTransition}:Props) => {
   const [searchInput, setSearchInput] = useState<string>("");
   const debouncedSearch = useDebounce(searchInput, 500);
   const { data, isLoading } = useMovies(debouncedSearch);
@@ -28,6 +33,7 @@ export const SearchInput = () => {
           isLoading={isLoading}
           onSelect={() => setSearchInput("")}
           movies={data?.results || []}
+          startTransition={startTransition}
         />
       )}
     </form>

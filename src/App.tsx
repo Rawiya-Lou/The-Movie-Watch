@@ -10,7 +10,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="movie/:id" element={<MovieDetails />} />
-        {/* <SearchInput /> */}
       </Routes>
     </BrowserRouter>
   );
