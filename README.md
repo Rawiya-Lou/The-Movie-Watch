@@ -1,4 +1,4 @@
-# 🎬 MovieStream - TMDB Discovery App
+# 🎬 The Movie Watch List - TMDB Discovery App
 
 A high-performance Movie and TV Show discovery application built with **React**, **TypeScript**, and **Tailwind CSS**. This app provides a seamless experience for browsing trending media, searching for specific titles, and viewing detailed information about the latest cinematic releases.
 
