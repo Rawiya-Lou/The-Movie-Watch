@@ -1,24 +1,34 @@
-import type { Movie } from '../types/Movie';
+import type { MediaData } from '../types/MediaData';
 import { Link } from 'react-router-dom';
 
-interface Props {
-  movie: Movie;
+
+
+interface MediaCardProps {
+  data: MediaData;
+  
+  type: 'movie' | 'tv';
 }
 
-export const MovieCard = ({ movie }: Props) => {
+
+export const MediaCard = ({data, type}: MediaCardProps) => {
   // Pre-formatted rating (e.g., 7.5)
-  const rating = movie.vote_average.toFixed(1);
+  const rating = data.vote_average.toFixed(1);
+  const displayTitle = data.title || data.name;
+  const dateString = data.release_date || data.first_air_date
+  const year = dateString ? dateString.split('-')[0] : 'N/A'
 
   return (
+    <div className="transition-transform hover:scale-105"
+                >
     <Link 
-      to={`/movie/${movie.id}`} 
+      to={`/${type}/${data.id}`} 
       className="group relative block rounded-lg overflow-hidden bg-gray-900 transition-all duration-300 hover:scale-105 hover:z-10 shadow-lg"
     >
       {/* Image Container with 2:3 Aspect Ratio */}
       <div className="aspect-[2/3] w-full relative">
         <img 
-          src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`} 
-          alt={movie.title}
+          src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`} 
+          alt={displayTitle}
           className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-60"
           loading="lazy"
         />
@@ -30,14 +40,15 @@ export const MovieCard = ({ movie }: Props) => {
               ★ {rating}
             </span>
             <span className="text-white text-xs">
-              {movie.release_date.split('-')[0]}
+              {year}
             </span>
           </div>
           <h3 className="text-white text-sm font-bold truncate">
-            {movie.title}
+            {displayTitle}
           </h3>
         </div>
       </div>
     </Link>
+    </div>
   );
 };
