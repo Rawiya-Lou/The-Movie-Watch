@@ -1,23 +1,23 @@
 import { SearchResultsItem } from './SearchResultsItem'
-import type { Movie } from '../types/Movie'
+import type {  MediaData } from '../types/MediaData'
 
 
 interface Props {
-    movies: Movie[]
+    data: MediaData[]
     onSelect: () => void
     isLoading: boolean
      startTransition: React.TransitionStartFunction
 }
 
-export const SearchResults = ({movies, isLoading, onSelect, startTransition}: Props) => {
+export const SearchResults = ({data, isLoading, onSelect, startTransition}: Props) => {
   return (
         <ul className="absolute z-10 w-full mt-1 bg-primary rounded-xl shadow-sm max-h-60 overflow-auto">
         {isLoading && <li className="p-2 text-text-gray">Searching...</li>}
-        {movies.map((movie) => (
-          <SearchResultsItem movie={movie} onSelect={onSelect} startTransition={startTransition} />
+        {data.map((d) => (
+          <SearchResultsItem data={d} onSelect={onSelect} startTransition={startTransition} />
         
         ))}
-        {!isLoading && movies.length === 0 && (
+        {!isLoading && data.length === 0 && (
           <li className="p-2 text-text-gray text-center">No Movies Found</li>
         )}
       </ul>

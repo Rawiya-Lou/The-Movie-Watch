@@ -5,16 +5,14 @@ import { Link } from 'react-router-dom';
 
 interface MediaCardProps {
   data: MediaData;
-  
   type: 'movie' | 'tv';
 }
 
 
 export const MediaCard = ({data, type}: MediaCardProps) => {
-  // Pre-formatted rating (e.g., 7.5)
   const rating = data.vote_average.toFixed(1);
-  const displayTitle = data.title || data.name;
-  const dateString = data.release_date || data.first_air_date
+  const displayTitle = data.media_type === 'movie' ?  data.title : data.name;
+  const dateString = data.media_type === 'movie'? data.release_date : data.first_air_date
   const year = dateString ? dateString.split('-')[0] : 'N/A'
 
   return (
@@ -33,8 +31,9 @@ export const MediaCard = ({data, type}: MediaCardProps) => {
           loading="lazy"
         />
         
-        {/* Hover Overlay: Rating & Year */}
+        
         <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/80 to-transparent">
+
           <div className="flex items-center gap-2 mb-1">
             <span className="bg-yellow-500 text-black text-xs font-bold px-1.5 py-0.5 rounded">
               ★ {rating}
@@ -43,7 +42,7 @@ export const MediaCard = ({data, type}: MediaCardProps) => {
               {year}
             </span>
           </div>
-          <h3 className="text-white text-sm font-bold truncate">
+         <h3 className="text-white text-sm font-bold truncate">
             {displayTitle}
           </h3>
         </div>

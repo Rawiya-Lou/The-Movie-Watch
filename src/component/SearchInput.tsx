@@ -28,13 +28,13 @@ export const SearchInput = ({startTransition}:Props) => {
         placeholder="Movie Name.."
       />
       <MagnifyingGlassIcon className="h-5 w-5 absolute left-3 top-2.5 text-text-gray" />
-      {searchInput && (
-        <SearchResults
-          isLoading={isLoading}
-          onSelect={() => setSearchInput("")}
-          movies={data?.results || []}
-          startTransition={startTransition}
-        />
+      {searchInput.trim().length > 0 && (
+
+      
+       <SearchResults isLoading={isLoading} onSelect={() => setSearchInput("")} data={data?.results ?? []} startTransition={startTransition}/>
+                
+                
+        
       )}
     </form>
   );

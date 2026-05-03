@@ -1,12 +1,26 @@
 import { useParams } from "react-router-dom";
 import { useMovieDetails } from "../hooks/useMoviesDetails";
 import { GoBackButton } from "../component/GoBackButton";
-import { Star, Calendar, Clock } from "lucide-react";
+import { Star, Calendar} from "lucide-react";
 import MovieDetailsSkeleton from "../component/MovieDetailsSkeleton";
+import { displayRunTime } from "../utils/displayRunTime";
+import type { TVShow } from "../types/TVShows";
+import type { Movie } from "../types/Movie";
 
 export const MovieDetails = () => {
-  const { id } = useParams();
-  const { data: movie, isLoading, error } = useMovieDetails(id);
+  const { id, type } = useParams<{id: string,type: 'movie'|'tv'}>();
+
+  const { data , isLoading, error } = useMovieDetails(id, type);
+  const mediaType = location.pathname.includes('/tv/') ? 'tv': 'movie'
+  const movieData = (data as Movie);
+  const tvData = (data as TVShow)
+
+  const displayTitle = mediaType === 'movie' ?  movieData?.title : tvData?.name;
+  const dateString = mediaType === 'movie' ? movieData?.release_date : tvData?.first_air_date;
+  const year = dateString ? dateString.split('-')[0] : 'N/A';
+
+  
+ 
 
   if (isLoading) return (
     <div className="bg-primary min-h-screen">
@@ -15,7 +29,7 @@ export const MovieDetails = () => {
     </div>
   );
   if (error) return <div>Error loding movie</div>;
-  const imgUrl = `https://image.tmdb.org/t/p/w500${movie?.poster_path}`;
+  const imgUrl = `https://image.tmdb.org/t/p/w500${data?.poster_path}`;
   return (
   
      
@@ -32,34 +46,42 @@ export const MovieDetails = () => {
           <div className="w-full">
             <img
               src={imgUrl}
-              alt={movie?.title}
+              alt={displayTitle}
               className="w-full h-full object-cover shadow-2xl rounded-xl"
             />
           </div>
 
-          {movie && (
+          {data && (
             <div className="p-6 md:p-10 flex flex-col gap-6">
               <div>
                 <h1 className="text-4xl md:text-6xl text-accent-three mb-2 font-bold">
-                  {movie?.title}
+                  {displayTitle}
                 </h1>
-                <p className="text-text-gray italic text-lg">{movie?.tagline}</p>
+                <p className="text-text-gray italic text-lg">{data.tagline}</p>
               </div>
+
+              
+         
 
               <div className="flex flex-wrap gap-4 items-center text-sm font-semibold">
                 <div className="flex items-center gap-1 bg-primary px-3 py-1 rounded-full text-accent-three">
                   <Star className="w-4 h-4 fill-current text-yellow-500" />
-                  <span>{Math.floor(movie?.vote_average)}</span>
+                  <span>{Math.floor(data.vote_average)}</span>
                 </div>
 
                 <div className="flex items-center gap-1 text-text-gray">
-                  <Calendar className="w-4 h-4 text-text-gray" />
-                  <span>{movie.release_date.split("-")[0]}</span>
+                  <Calendar className="w-5 h-5 text-text-gray" />
+                  
+                  <span className="text-xl text-text-gray">{year}</span>
+
+               
                 </div>
 
                 <div className="flex items-center gap-1 text-text-gray">
-                  <Clock className="w-4 h-4" />
-                  <span>{movie.runtime} min</span>
+                  { data &&
+                  displayRunTime(data, mediaType)
+                  }
+                  
                 </div>
               </div>
 
@@ -68,7 +90,7 @@ export const MovieDetails = () => {
                   Overview
                 </h2>
                 <p className="text-text-gray loading-relaxed text-lg">
-                  {movie.overview}
+                  {data.overview}
                 </p>
               </div>
               <button className="mt-auto w-fit bg-accent-three hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 cursor-pointer">

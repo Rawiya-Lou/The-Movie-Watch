@@ -12,13 +12,13 @@ export const useMovies = (query: string) => {
     queryFn: async () => {
 
   const endpoint = query 
-  ? `${BASE_URL}/search/multi}` 
+  ? `${BASE_URL}/search/multi` 
   : `${BASE_URL}/trending/all/day`;
 
       const { data } = await axios.get<MovieResponse>(endpoint, {
         params: {
           api_key: API_KEY,
-          ...(query && { query: encodeURIComponent(query) })
+          ...(query && { query: query })
         }
       });
 
