@@ -93,7 +93,16 @@ export const MovieDetails = () => {
                   {data.overview}
                 </p>
               </div>
-              <button className="mt-auto w-fit bg-accent-three hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 cursor-pointer">
+              <button className="mt-auto w-fit bg-accent-three hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg transition-transform hover:scale-105 cursor-pointer flex gap-1.5 items-center">
+                <svg
+                  xmlns="http://w3.org"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
                 Watch Trailer
               </button>
             </div>
